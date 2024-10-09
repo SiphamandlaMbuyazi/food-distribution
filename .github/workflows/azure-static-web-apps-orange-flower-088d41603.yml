@@ -19,7 +19,11 @@ jobs:
         with:
           submodules: true
           lfs: false
-          
+
+      - name: Install Node.js and Dependencies
+        run: |
+          npm install
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -28,8 +32,8 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
           
-          # Specify the folder where your index.html and other static files are located
-          app_location: "/" # This should point to the root of your project or the folder containing index.html
-          
-          # Since you're using vanilla JS, you don't have a separate build step
-          output_location: "/" # Output location should be the same as app_location for vanilla JS
+          ###### Repository/Build Configurations ######
+          app_location: "./src" # Update to point to your static files (HTML, CSS, JS)
+          output_location: "./src" # Same as app_location for vanilla projects
+          app_build_command: "npm run build" # Use the dummy build command defined in package.json
+          ###### End of Repository/Build Configurations ######
